@@ -66,10 +66,10 @@ func init() {
 
 func main() {
 	ebiten.SetWindowSize(screenWidth*2, screenHeight*2)
-	ebiten.SetWindowTitle("Nok")
+	ebiten.SetWindowTitle("Color Hit")
 	ebiten.SetMaxTPS(60)
 	ebiten.SetWindowResizable(true)
-	ebiten.SetFullscreen(true)
+	ebiten.SetFullscreen(false)
 	if err := ebiten.RunGame(game); err != nil {
 		log.Fatal(err)
 	}
