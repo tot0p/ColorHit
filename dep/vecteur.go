@@ -1,24 +1,32 @@
 package dep
 
-import (
-	"math"
-)
-
 type Mouv struct {
-	SpeedX, SpeedY int
-	DestX, DestY   int
+	SpeedX, SpeedY float64
+	DestX, DestY   float64
+	X, Y           float64
+	PosX, PosY     bool
 }
 
-func (v *Mouv) Apply(x, y *int) bool {
+func (v *Mouv) Apply(x, y *float64) bool {
 	var xstop, ystop bool
-	if math.Abs(float64(*x)) > math.Abs(float64(v.DestX-v.SpeedX/2)) {
+	if v.X <= v.DestX && v.PosX {
 		*x -= v.SpeedX
+		v.X -= v.SpeedX
+		xstop = false
+	} else if v.X >= v.DestX && !v.PosX {
+		*x -= v.SpeedX
+		v.X -= v.SpeedX
 		xstop = false
 	} else {
 		xstop = true
 	}
-	if math.Abs(float64(*y)) > math.Abs(float64(v.DestX-v.SpeedX/2)) {
+	if v.Y <= v.DestY && v.PosY {
 		*y -= v.SpeedY
+		v.Y -= v.SpeedY
+		ystop = false
+	} else if v.Y >= v.DestY && !v.PosY {
+		*y -= v.SpeedY
+		v.Y -= v.SpeedY
 		ystop = false
 	} else {
 		ystop = true

@@ -35,7 +35,7 @@ func (p *Player) Update() {
 	vx, vy := float64(p.X-posx), float64(p.Y-posy)
 	p.Angle2 = int(math.Atan2(vy, vx)*180/math.Pi) - 90
 	if ebiten.IsKeyPressed(ebiten.KeyQ) {
-		p.Map.NewProjectile(p.X, p.Y, posx, posy, 4, p.Angle2)
+		p.Map.NewProjectile(float64(p.X), float64(p.Y), float64(posx), float64(posy), float64(p.X-posx)/30, float64(p.Y-posy)/30, p.Angle2)
 	}
 	if ebiten.IsKeyPressed(ebiten.KeySpace) {
 		for i := 0; i < p.Width; i++ {

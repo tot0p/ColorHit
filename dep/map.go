@@ -48,9 +48,16 @@ func VerifPoint(a []*Point, k *Point) bool {
 	return false
 }
 
-func (m *Map) NewProjectile(x, y, destX, destY, speed, angle int) {
+func (m *Map) NewProjectile(x, y, destX, destY, speedx, speedy float64, angle int) {
 	if m.Proj == nil {
-		m.Proj = &Projectile{x, y, LoadImg("data/img/tank.png").SubImage(image.Rect(32, 0, 48, 16)).(*ebiten.Image), &Mouv{speed, speed, destX, destY}, angle}
+		xt, yt := false, false
+		if x < destX {
+			xt = true
+		}
+		if y < destY {
+			yt = true
+		}
+		m.Proj = &Projectile{x, y, LoadImg("data/img/tank.png").SubImage(image.Rect(32, 0, 48, 16)).(*ebiten.Image), &Mouv{speedx, speedy, destX, destY, x, y, xt, yt}, angle}
 	}
 }
 
