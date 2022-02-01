@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"image"
 	"log"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -31,6 +32,7 @@ type Game struct {
 func (g *Game) Update() error {
 	g.count++
 	g.Player.Update()
+	m.Update()
 	if ebiten.IsKeyPressed(ebiten.KeyF3) && temp+15 < g.count {
 		debug = !debug
 		temp = g.count
@@ -54,9 +56,10 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 
 func init() {
 	debug = false
-	m = dep.Map{ebiten.NewImage(resolWidth, resolHeight), []*dep.Point{}}
+	m = dep.Map{ebiten.NewImage(resolWidth, resolHeight), []*dep.Point{}, nil}
+	img := dep.LoadImg("data/img/tank.png")
 	game = &Game{
-		&dep.Player{50, 50, 10, 10, resolWidth, resolHeight, &m},
+		&dep.Player{resolWidth/2 - 8, resolHeight/2 - 8, 16, 16, resolWidth, resolHeight, &m, img.SubImage(image.Rect(0, 0, 16, 16)).(*ebiten.Image), img.SubImage(image.Rect(16, 0, 32, 16)).(*ebiten.Image), 0},
 		0,
 	}
 }
