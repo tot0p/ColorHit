@@ -9,7 +9,7 @@ import (
 const velocity = 2
 
 type Player struct {
-	X, Y, Width, Height, RW, RH int
+	X, Y, Width, Height, RW, RH int //X et Y au centre du player
 	Map                         *Map
 	ImgData, ImgData1           *ebiten.Image
 	Angle                       int
@@ -33,7 +33,7 @@ func (p *Player) Update() {
 	posx, posy := ebiten.CursorPosition()
 	vx, vy := float64(p.X-posx), float64(p.Y-posy)
 	p.Angle2 = int(math.Atan2(vy, vx)*180/math.Pi) - 90
-	if ebiten.IsKeyPressed(ebiten.KeyQ) {
+	if ebiten.IsKeyPressed(ebiten.KeySpace) {
 		p.Map.NewProjectile(float64(p.X), float64(p.Y), float64(posx), float64(posy), float64(p.X-posx)/30, float64(p.Y-posy)/30, p.Angle2)
 	}
 	if p.Angle == 90 || p.Angle == 270 {

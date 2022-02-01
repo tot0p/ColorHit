@@ -7,7 +7,7 @@ import (
 )
 
 type Projectile struct {
-	X, Y  float64
+	X, Y  float64 // au centre du Projectile
 	Img   *ebiten.Image
 	Mouv  *Mouv
 	Angle int
