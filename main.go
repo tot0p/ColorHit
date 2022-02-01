@@ -69,7 +69,7 @@ func main() {
 	ebiten.SetWindowTitle("Nok")
 	ebiten.SetMaxTPS(60)
 	ebiten.SetWindowResizable(true)
-	ebiten.SetFullscreen(false)
+	ebiten.SetFullscreen(true)
 	if err := ebiten.RunGame(game); err != nil {
 		log.Fatal(err)
 	}

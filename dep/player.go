@@ -2,7 +2,6 @@ package dep
 
 import (
 	"math"
-	"math/rand"
 
 	"github.com/hajimehoshi/ebiten/v2"
 )
@@ -37,10 +36,22 @@ func (p *Player) Update() {
 	if ebiten.IsKeyPressed(ebiten.KeyQ) {
 		p.Map.NewProjectile(float64(p.X), float64(p.Y), float64(posx), float64(posy), float64(p.X-posx)/30, float64(p.Y-posy)/30, p.Angle2)
 	}
-	if ebiten.IsKeyPressed(ebiten.KeySpace) {
-		for i := 0; i < p.Width; i++ {
-			for y := 0; y < p.Height; y++ {
-				p.Map.Set(p.X+y-8, p.Y+i-8, Pal[rand.Intn(5)])
+	if p.Angle == 90 || p.Angle == 270 {
+		for i := 1; i < p.Width-1; i++ {
+			for y := 1; y < 4; y++ {
+				p.Map.Set(p.X+i-8, p.Y+y-8, Chen)
+			}
+			for y := 12; y < 15; y++ {
+				p.Map.Set(p.X+i-8, p.Y+y-8, Chen)
+			}
+		}
+	} else {
+		for i := 1; i < p.Height-1; i++ {
+			for y := 1; y < 4; y++ {
+				p.Map.Set(p.X+y-8, p.Y+i-8, Chen)
+			}
+			for y := 12; y < 15; y++ {
+				p.Map.Set(p.X+y-8, p.Y+i-8, Chen)
 			}
 		}
 	}
