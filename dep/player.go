@@ -43,5 +43,4 @@ func (p *Player) Draw(screen *ebiten.Image) {
 			screen.Set(p.X+y, p.Y+i, color.White)
 		}
 	}
-
 }

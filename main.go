@@ -17,8 +17,10 @@ const (
 )
 
 var (
-	game *Game
-	m    dep.Map
+	game  *Game
+	m     dep.Map
+	debug bool
+	temp  int
 )
 
 type Game struct {
@@ -29,16 +31,21 @@ type Game struct {
 func (g *Game) Update() error {
 	g.count++
 	g.Player.Update()
+	if ebiten.IsKeyPressed(ebiten.KeyF3) && temp+15 < g.count {
+		debug = !debug
+		temp = g.count
+	}
 	return nil
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
 	m.Draw(screen)
 	g.Player.Draw(screen)
-	msg := fmt.Sprintf(`TPS: %0.2f
-FPS: %0.2f
-`, ebiten.CurrentTPS(), ebiten.CurrentFPS())
-	ebitenutil.DebugPrint(screen, msg)
+	//debug
+	if debug {
+		msg := fmt.Sprintf(`TPS: %0.2f FPS: %0.2f`, ebiten.CurrentTPS(), ebiten.CurrentFPS())
+		ebitenutil.DebugPrint(screen, msg)
+	}
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
@@ -46,9 +53,10 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 }
 
 func init() {
-	m = dep.Map{ebiten.NewImage(resolWidth, resolHeight)}
+	debug = false
+	m = dep.Map{ebiten.NewImage(resolWidth, resolHeight), []*dep.Point{}}
 	game = &Game{
-		&dep.Player{0, 0, 10, 10, resolWidth, resolHeight, &m},
+		&dep.Player{50, 50, 10, 10, resolWidth, resolHeight, &m},
 		0,
 	}
 }

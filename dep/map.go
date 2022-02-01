@@ -7,7 +7,8 @@ import (
 )
 
 type Map struct {
-	Img *ebiten.Image
+	Img   *ebiten.Image
+	Color []*Point
 }
 
 func (m *Map) Draw(screen *ebiten.Image) {
@@ -18,4 +19,21 @@ func (m *Map) Draw(screen *ebiten.Image) {
 
 func (m *Map) Set(x, y int, color color.Color) {
 	m.Img.Set(x, y, color)
+	temp := &Point{x, y}
+	if !VerifPoint(m.Color, temp) {
+		m.Color = append(m.Color, temp)
+	}
+}
+
+func VerifPoint(a []*Point, k *Point) bool {
+	for _, i := range a {
+		if *i == *k {
+			return true
+		}
+	}
+	return false
+}
+
+type Point struct {
+	X, Y int
 }
