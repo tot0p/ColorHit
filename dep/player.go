@@ -1,7 +1,6 @@
 package dep
 
 import (
-	"fmt"
 	"math"
 	"math/rand"
 
@@ -32,27 +31,19 @@ func (p *Player) Update() {
 		p.Y += velocity
 		p.Angle = 180
 	}
+	posx, posy := ebiten.CursorPosition()
+	vx, vy := float64(p.X-posx), float64(p.Y-posy)
+	p.Angle2 = int(math.Atan2(vy, vx)*180/math.Pi) - 90
 	if ebiten.IsKeyPressed(ebiten.KeyQ) {
-		p.Map.NewProjectile(p.X+7, p.Y, p.X+7, p.Y-160, 4)
+		p.Map.NewProjectile(p.X, p.Y, posx, posy, 4, p.Angle2)
 	}
 	if ebiten.IsKeyPressed(ebiten.KeySpace) {
 		for i := 0; i < p.Width; i++ {
 			for y := 0; y < p.Height; y++ {
-				p.Map.Set(p.X+y, p.Y+i, Pal[rand.Intn(5)])
+				p.Map.Set(p.X+y-8, p.Y+i-8, Pal[rand.Intn(5)])
 			}
 		}
 	}
-	posx, posy := ebiten.CursorPosition()
-	fmt.Println(ebiten.CursorPosition())
-	fmt.Println(float64(posx-p.X), " ", float64(p.Y-posy))
-	vx, vy := float64(p.X-posx), float64(p.Y-posy)
-
-	sca := -8*vx + -8*vy
-	ra := math.Sqrt(math.Pow(vx, 2) + math.Pow(vy, 2))
-	ra1 := math.Sqrt(math.Pow(-8, 2) + math.Pow(-8, 2))
-	fmt.Println(int(math.Acos(sca / (ra * ra1))))
-	p.Angle2 = int(math.Acos(sca / (ra * ra1)))
-
 }
 
 func (p *Player) Draw(screen *ebiten.Image) {
@@ -65,7 +56,6 @@ func (p *Player) Draw(screen *ebiten.Image) {
 	//canon
 	op.GeoM.Reset()
 	op.GeoM.Translate(-float64(16)/2, -float64(16)/2)
-	//fmt.Println(p.Angle2)
 	op.GeoM.Rotate(float64(p.Angle2%360) * 2 * math.Pi / 360)
 	op.GeoM.Translate(float64(p.X), float64(p.Y))
 	screen.DrawImage(p.ImgData1, op)

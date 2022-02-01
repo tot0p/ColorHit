@@ -1,30 +1,28 @@
 package dep
 
 import (
-	"image/color"
+	"math"
 
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
 type Projectile struct {
-	X, Y int
-	//img  *ebiten.Image
-	Mouv *Mouv
+	X, Y  int
+	Img   *ebiten.Image
+	Mouv  *Mouv
+	Angle int
 }
 
 func (p *Projectile) Draw(screen *ebiten.Image) {
-	for i := 0; i < 2; i++ {
-		for y := 0; y < 2; y++ {
-			screen.Set(p.X+y, p.Y+i, color.White)
-		}
-	}
+	//body
+	op := &ebiten.DrawImageOptions{}
+	op.GeoM.Translate(-float64(16)/2, -float64(16)/2)
+	op.GeoM.Rotate(float64(p.Angle%360) * 2 * math.Pi / 360)
+	op.GeoM.Translate(float64(p.X), float64(p.Y))
+	screen.DrawImage(p.Img, op)
+	screen.DrawImage(p.Img, op)
 }
 
 func (p *Projectile) Update() bool {
-	if p.Mouv.DestX == p.X && p.Mouv.DestY == p.Y {
-		return true
-	} else {
-		p.Mouv.Apply(&p.X, &p.Y)
-		return false
-	}
+	return p.Mouv.Apply(&p.X, &p.Y)
 }

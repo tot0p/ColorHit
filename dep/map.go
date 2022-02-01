@@ -1,6 +1,7 @@
 package dep
 
 import (
+	"image"
 	"image/color"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -47,9 +48,9 @@ func VerifPoint(a []*Point, k *Point) bool {
 	return false
 }
 
-func (m *Map) NewProjectile(x, y, destX, destY, speed int) {
+func (m *Map) NewProjectile(x, y, destX, destY, speed, angle int) {
 	if m.Proj == nil {
-		m.Proj = &Projectile{x, y, &Mouv{speed, speed, destX, destY}}
+		m.Proj = &Projectile{x, y, LoadImg("data/img/tank.png").SubImage(image.Rect(32, 0, 48, 16)).(*ebiten.Image), &Mouv{speed, speed, destX, destY}, angle}
 	}
 }
 
