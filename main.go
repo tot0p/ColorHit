@@ -21,20 +21,17 @@ const (
 
 var (
 	game  *Game
-	m     dep.Map
 	debug bool
 	temp  int
 )
 
 type Game struct {
-	Player *dep.Player
-	count  int
+	gamebody *dep.GameBody
+	count    int
 }
 
 func (g *Game) Update() error {
-	g.count++
-	g.Player.Update()
-	m.Update()
+	g.gamebody.Update()
 	if ebiten.IsKeyPressed(ebiten.KeyF3) && temp+15 < g.count {
 		debug = !debug
 		temp = g.count
@@ -43,17 +40,12 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	m.Draw(screen)
-	g.Player.Draw(screen)
+	g.gamebody.Draw(screen)
 	//debug
 	if debug {
 		msg := fmt.Sprintf(`TPS: %0.2f FPS: %0.2f`, ebiten.CurrentTPS(), ebiten.CurrentFPS())
 		ebitenutil.DebugPrint(screen, msg)
 	}
-	point := fmt.Sprintf(`Points : %d `, m.Point/10*100)
-	ebitenutil.DebugPrint(screen, point)
-	time := fmt.Sprintf(`time : %d `, g.count/60)
-	ebitenutil.DebugPrintAt(screen, time, 50, 10)
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
@@ -63,10 +55,14 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 func init() {
 	rand.Seed(time.Now().Unix())
 	debug = false
-	m = dep.Map{ebiten.NewImage(resolWidth, resolHeight), 0, nil, dep.AllStructure}
+	t := &dep.Map{ebiten.NewImage(resolWidth, resolHeight), 0, nil, dep.AllStructure}
 	img := dep.LoadImg("data/img/tank.png")
 	game = &Game{
-		&dep.Player{&dep.RigidBody{resolWidth/2 - 4, resolHeight/2 - 4, 16, 16}, resolWidth, resolHeight, &m, img.SubImage(image.Rect(0, 0, 16, 16)).(*ebiten.Image), img.SubImage(image.Rect(16, 0, 32, 16)).(*ebiten.Image), 0, 0},
+		&dep.GameBody{
+			&dep.Player{&dep.RigidBody{resolWidth/2 - 4, resolHeight/2 - 4, 16, 16}, resolWidth, resolHeight, t, img.SubImage(image.Rect(0, 0, 16, 16)).(*ebiten.Image), img.SubImage(image.Rect(16, 0, 32, 16)).(*ebiten.Image), 0, 0},
+			t,
+			0,
+		},
 		0,
 	}
 	dep.Chen = dep.Pal[rand.Intn(len(dep.Pal))]
