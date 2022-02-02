@@ -8,15 +8,19 @@ import (
 )
 
 type Map struct {
-	Img   *ebiten.Image
-	Color []*Point
-	Proj  *Projectile
+	Img       *ebiten.Image
+	Color     []*Point
+	Proj      *Projectile
+	Structure []*Structure
 }
 
 func (m *Map) Draw(screen *ebiten.Image) {
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(0, 0)
 	screen.DrawImage(m.Img, op)
+	for _, i := range m.Structure {
+		i.Draw(screen)
+	}
 	if m.Proj != nil {
 		m.Proj.Draw(screen)
 	}
