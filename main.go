@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"image"
 	"log"
+	"math/rand"
+	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
@@ -48,6 +50,10 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		msg := fmt.Sprintf(`TPS: %0.2f FPS: %0.2f`, ebiten.CurrentTPS(), ebiten.CurrentFPS())
 		ebitenutil.DebugPrint(screen, msg)
 	}
+	point := fmt.Sprintf(`Points : %d `, m.Point/10*100)
+	ebitenutil.DebugPrint(screen, point)
+	time := fmt.Sprintf(`time : %d `, g.count/60)
+	ebitenutil.DebugPrintAt(screen, time, 50, 10)
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
@@ -55,6 +61,7 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 }
 
 func init() {
+	rand.Seed(time.Now().Unix())
 	debug = false
 	m = dep.Map{ebiten.NewImage(resolWidth, resolHeight), 0, nil, dep.AllStructure}
 	img := dep.LoadImg("data/img/tank.png")
@@ -62,6 +69,7 @@ func init() {
 		&dep.Player{&dep.RigidBody{resolWidth/2 - 4, resolHeight/2 - 4, 16, 16}, resolWidth, resolHeight, &m, img.SubImage(image.Rect(0, 0, 16, 16)).(*ebiten.Image), img.SubImage(image.Rect(16, 0, 32, 16)).(*ebiten.Image), 0, 0},
 		0,
 	}
+	dep.Chen = dep.Pal[rand.Intn(len(dep.Pal))]
 }
 
 func main() {

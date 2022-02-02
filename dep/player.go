@@ -24,7 +24,7 @@ func (p *Player) Update() {
 		if p.Map.Collide(p.RigidBody) {
 			p.RigidBody.X += velocity
 		}
-	} else if (ebiten.IsKeyPressed(ebiten.KeyD) || ebiten.IsKeyPressed(ebiten.KeyArrowRight)) && p.RigidBody.X < p.RW {
+	} else if (ebiten.IsKeyPressed(ebiten.KeyD) || ebiten.IsKeyPressed(ebiten.KeyArrowRight)) && p.RigidBody.X < p.RW-p.RigidBody.Width {
 		p.RigidBody.X += velocity
 		p.Angle = 90
 		if p.Map.Collide(p.RigidBody) {
@@ -36,7 +36,7 @@ func (p *Player) Update() {
 		for p.Map.Collide(p.RigidBody) {
 			p.RigidBody.Y += 1
 		}
-	} else if (ebiten.IsKeyPressed(ebiten.KeyS) || ebiten.IsKeyPressed(ebiten.KeyArrowDown)) && p.RigidBody.Y < p.RH {
+	} else if (ebiten.IsKeyPressed(ebiten.KeyS) || ebiten.IsKeyPressed(ebiten.KeyArrowDown)) && p.RigidBody.Y < p.RH-p.RigidBody.Height {
 		p.RigidBody.Y += velocity
 		p.Angle = 180
 		if p.Map.Collide(p.RigidBody) {
