@@ -23,8 +23,9 @@ func (g *GameBody) Draw(screen *ebiten.Image) {
 
 }
 
-func (g *GameBody) Update() {
+func (g *GameBody) Update() bool {
 	g.Count++
 	g.Player.Update()
 	g.M.Update()
+	return !(g.Count/60 == 60)
 }

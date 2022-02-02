@@ -28,10 +28,13 @@ var (
 type Game struct {
 	gamebody *dep.GameBody
 	count    int
+	start    bool
 }
 
 func (g *Game) Update() error {
-	g.gamebody.Update()
+	if g.start {
+		g.start = g.gamebody.Update()
+	}
 	if ebiten.IsKeyPressed(ebiten.KeyF3) && temp+15 < g.count {
 		debug = !debug
 		temp = g.count
@@ -40,7 +43,9 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	g.gamebody.Draw(screen)
+	if g.start {
+		g.gamebody.Draw(screen)
+	}
 	//debug
 	if debug {
 		msg := fmt.Sprintf(`TPS: %0.2f FPS: %0.2f`, ebiten.CurrentTPS(), ebiten.CurrentFPS())
@@ -64,6 +69,7 @@ func init() {
 			0,
 		},
 		0,
+		true,
 	}
 	dep.Chen = dep.Pal[rand.Intn(len(dep.Pal))]
 }
