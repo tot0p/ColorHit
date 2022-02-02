@@ -9,7 +9,7 @@ import (
 
 type Map struct {
 	Img       *ebiten.Image
-	Color     []*Point
+	Point     int
 	Proj      *Projectile
 	Structure []*Structure
 }
@@ -45,20 +45,10 @@ func (m *Map) Collide(r *RigidBody) bool {
 }
 
 func (m *Map) Set(x, y int, color color.Color) {
-	m.Img.Set(x, y, color)
-	temp := &Point{x, y}
-	if !VerifPoint(m.Color, temp) {
-		m.Color = append(m.Color, temp)
+	if m.Img.At(x, y) != color {
+		m.Img.Set(x, y, color)
+		m.Point++
 	}
-}
-
-func VerifPoint(a []*Point, k *Point) bool {
-	for _, i := range a {
-		if *i == *k {
-			return true
-		}
-	}
-	return false
 }
 
 func (m *Map) NewProjectile(x, y, destX, destY, speedx, speedy float64, angle int) {
@@ -72,8 +62,4 @@ func (m *Map) NewProjectile(x, y, destX, destY, speedx, speedy float64, angle in
 		}
 		m.Proj = &Projectile{x, y, LoadImg("data/img/tank.png").SubImage(image.Rect(32, 0, 48, 16)).(*ebiten.Image), &Mouv{speedx, speedy, destX, destY, x, y, xt, yt}, angle}
 	}
-}
-
-type Point struct {
-	X, Y int
 }
