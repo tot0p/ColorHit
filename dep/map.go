@@ -35,6 +35,15 @@ func (m *Map) Update() {
 	}
 }
 
+func (m *Map) Collide(r *RigidBody) bool {
+	for _, i := range m.Structure {
+		if i.Collide(r) {
+			return true
+		}
+	}
+	return false
+}
+
 func (m *Map) Set(x, y int, color color.Color) {
 	m.Img.Set(x, y, color)
 	temp := &Point{x, y}

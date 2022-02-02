@@ -59,7 +59,7 @@ func init() {
 	m = dep.Map{ebiten.NewImage(resolWidth, resolHeight), []*dep.Point{}, nil, dep.AllStructure}
 	img := dep.LoadImg("data/img/tank.png")
 	game = &Game{
-		&dep.Player{&dep.RigidBody{resolWidth/2 - 8, resolHeight/2 - 8, 16, 16}, resolWidth, resolHeight, &m, img.SubImage(image.Rect(0, 0, 16, 16)).(*ebiten.Image), img.SubImage(image.Rect(16, 0, 32, 16)).(*ebiten.Image), 0, 0},
+		&dep.Player{&dep.RigidBody{resolWidth/2 - 4, resolHeight/2 - 4, 16, 16}, resolWidth, resolHeight, &m, img.SubImage(image.Rect(0, 0, 16, 16)).(*ebiten.Image), img.SubImage(image.Rect(16, 0, 32, 16)).(*ebiten.Image), 0, 0},
 		0,
 	}
 }
