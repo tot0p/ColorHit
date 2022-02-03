@@ -19,7 +19,7 @@ func (g *GameBody) Draw(screen *ebiten.Image) {
 	point := fmt.Sprintf(`Points : %d `, g.M.Point/10*100)
 	ebitenutil.DebugPrint(screen, point)
 	time := fmt.Sprintf(`time : %d `, g.Count/60)
-	ebitenutil.DebugPrintAt(screen, time, 50, 10)
+	ebitenutil.DebugPrintAt(screen, time, 200, 5)
 
 }
 

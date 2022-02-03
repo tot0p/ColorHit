@@ -43,10 +43,10 @@ func (p *Player) Update() {
 			p.RigidBody.Y -= velocity
 		}
 	}
-	posx, posy := ebiten.CursorPosition()
-	vx, vy := float64(p.RigidBody.X-posx), float64(p.RigidBody.Y-posy)
-	p.Angle2 = int(math.Atan2(vy, vx)*180/math.Pi) - 90
-	if ebiten.IsKeyPressed(ebiten.KeySpace) {
+	if ebiten.IsKeyPressed(ebiten.KeySpace) && p.Map.Proj == nil {
+		posx, posy := ebiten.CursorPosition()
+		vx, vy := float64(p.RigidBody.X-posx), float64(p.RigidBody.Y-posy)
+		p.Angle2 = int(math.Atan2(vy, vx)*180/math.Pi) - 90
 		p.Map.NewProjectile(float64(p.RigidBody.X+8), float64(p.RigidBody.Y+8), float64(posx), float64(posy), float64(p.RigidBody.X-posx)/30, float64(p.RigidBody.Y-posy)/30, p.Angle2)
 	}
 	if p.Angle == 90 || p.Angle == 270 {
