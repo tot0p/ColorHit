@@ -27,5 +27,8 @@ func (g *GameBody) Update() bool {
 	g.Count++
 	g.Player.Update(g.Count)
 	g.M.Update()
+	if (g.Count/60)%5 == 0 {
+		g.M.AddCoin()
+	}
 	return !(g.Count/60 == 60)
 }

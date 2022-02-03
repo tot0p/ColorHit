@@ -3,6 +3,8 @@ package dep
 import (
 	"image"
 	"image/color"
+	"math/rand"
+	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
 )
@@ -12,6 +14,12 @@ type Map struct {
 	Point     int
 	Proj      *Projectile
 	Structure []*Structure
+	Coin      []*Coin
+}
+
+func (m *Map) AddCoin() {
+	rand.Seed(time.Now().Unix())
+	m.Coin = append(m.Coin, CreateCoin(rand.Intn(3)+1, 0, 0))
 }
 
 func (m *Map) Draw(screen *ebiten.Image) {
@@ -19,6 +27,9 @@ func (m *Map) Draw(screen *ebiten.Image) {
 	op.GeoM.Translate(0, 0)
 	screen.DrawImage(m.Img, op)
 	for _, i := range m.Structure {
+		i.Draw(screen)
+	}
+	for _, i := range m.Coin {
 		i.Draw(screen)
 	}
 	if m.Proj != nil {
