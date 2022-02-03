@@ -2,6 +2,7 @@ package dep
 
 import (
 	"fmt"
+	"image/color"
 	"math/rand"
 	"time"
 
@@ -16,9 +17,10 @@ type GameBody struct {
 }
 
 func (g *GameBody) Draw(screen *ebiten.Image) {
+	screen.Fill(color.RGBA{31, 31, 31, 255})
 	g.M.Draw(screen)
 	g.Player.Draw(screen)
-	point := fmt.Sprintf(`Points : %d `, g.M.Point/10*100)
+	point := fmt.Sprintf(`Points : %d`, g.M.Point/10*100)
 	ebitenutil.DebugPrint(screen, point)
 	time := fmt.Sprintf(`time : %d `, 60-g.Count/60)
 	ebitenutil.DebugPrintAt(screen, time, 200, 5)

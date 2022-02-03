@@ -10,6 +10,7 @@ type Coin struct {
 	Tier      int
 	Img       *ebiten.Image
 	RigidBody RigidBody
+	Time      int
 }
 
 func CreateCoin(tier int, x, y int) *Coin {
@@ -22,7 +23,8 @@ func CreateCoin(tier int, x, y int) *Coin {
 	default:
 		img = img.SubImage(image.Rect(144, 16, 160, 32)).(*ebiten.Image)
 	}
-	return &Coin{tier, img, RigidBody{x, y, 16, 16}}
+	// generate time in 10s between 20s
+	return &Coin{tier, img, RigidBody{x, y, 16, 16}, 600}
 }
 
 func (c *Coin) Draw(screen *ebiten.Image) {

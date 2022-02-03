@@ -43,6 +43,14 @@ func (m *Map) Update() {
 			m.Proj = nil
 		}
 	}
+	for k, i := range m.Coin {
+		if i != nil {
+			i.Time -= 1
+			if i.Time <= 0 {
+				m.Coin[k] = nil
+			}
+		}
+	}
 }
 
 func (m *Map) Collide(r *RigidBody) bool {
