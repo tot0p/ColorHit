@@ -20,3 +20,9 @@ func LoadImg(s string) *ebiten.Image {
 	}
 	return ebiten.NewImageFromImage(img)
 }
+func LoadImgImage(s string) image.Image {
+	file, _ := os.Open(s)
+	defer file.Close()
+	img, _, _ := image.Decode(file)
+	return img
+}

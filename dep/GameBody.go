@@ -18,14 +18,14 @@ func (g *GameBody) Draw(screen *ebiten.Image) {
 	g.Player.Draw(screen)
 	point := fmt.Sprintf(`Points : %d `, g.M.Point/10*100)
 	ebitenutil.DebugPrint(screen, point)
-	time := fmt.Sprintf(`time : %d `, g.Count/60)
+	time := fmt.Sprintf(`time : %d `, 60-g.Count/60)
 	ebitenutil.DebugPrintAt(screen, time, 200, 5)
 
 }
 
 func (g *GameBody) Update() bool {
 	g.Count++
-	g.Player.Update()
+	g.Player.Update(g.Count)
 	g.M.Update()
 	return !(g.Count/60 == 60)
 }
