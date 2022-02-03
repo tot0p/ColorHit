@@ -31,6 +31,22 @@ var AllStructure = []*Structure{
 			AllImg[2],
 		},
 	},
+	{
+		Tile{
+			true,
+			&RigidBody{
+				64, 64, 16, 16,
+			},
+			AllImg[1],
+		},
+		Tile{
+			true,
+			&RigidBody{
+				64, 80, 16, 16,
+			},
+			AllImg[2],
+		},
+	},
 }
 
 type Structure []Tile

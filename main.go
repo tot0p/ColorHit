@@ -29,11 +29,23 @@ type Game struct {
 	gamebody *dep.GameBody
 	count    int
 	start    bool
+	Acc      *dep.Acc
 }
 
 func (g *Game) Update() error {
 	if g.start {
 		g.start = g.gamebody.Update()
+		if !g.start {
+			t := &dep.Map{ebiten.NewImage(resolWidth, resolHeight), 0, nil, dep.AllStructure}
+			img := dep.LoadImg("data/img/tank.png")
+			g.gamebody = &dep.GameBody{
+				&dep.Player{&dep.RigidBody{resolWidth/2 - 4, resolHeight/2 - 4, 16, 16}, resolWidth, resolHeight, t, img.SubImage(image.Rect(0, 0, 16, 16)).(*ebiten.Image), img.SubImage(image.Rect(16, 0, 32, 16)).(*ebiten.Image), 0, 0},
+				t,
+				0,
+			}
+		}
+	} else {
+		g.start = g.Acc.Update(&temp, &g.count)
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyF3) && temp+15 < g.count {
 		debug = !debug
@@ -45,6 +57,8 @@ func (g *Game) Update() error {
 func (g *Game) Draw(screen *ebiten.Image) {
 	if g.start {
 		g.gamebody.Draw(screen)
+	} else {
+		g.Acc.Draw(screen)
 	}
 	//debug
 	if debug {
@@ -69,7 +83,12 @@ func init() {
 			0,
 		},
 		0,
-		true,
+		false,
+		&dep.Acc{
+			dep.LoadImg("data/ui/menu.png"),
+			dep.RigidBody{224, 192, 64, 32},
+			dep.RigidBody{224, 240, 64, 32},
+		},
 	}
 	dep.Chen = dep.Pal[rand.Intn(len(dep.Pal))]
 }
