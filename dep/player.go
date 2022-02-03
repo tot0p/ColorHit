@@ -50,7 +50,7 @@ func (p *Player) Update() {
 		p.Map.NewProjectile(float64(p.RigidBody.X+8), float64(p.RigidBody.Y+8), float64(posx), float64(posy), float64(p.RigidBody.X-posx)/30, float64(p.RigidBody.Y-posy)/30, p.Angle2)
 	}
 	if p.Angle == 90 || p.Angle == 270 {
-		for i := 1; i < p.RigidBody.Width-1; i++ {
+		for i := 0; i < p.RigidBody.Width; i++ {
 			for y := 1; y < 4; y++ {
 				p.Map.Set(p.RigidBody.X+i, p.RigidBody.Y+y, Chen)
 			}
@@ -59,7 +59,7 @@ func (p *Player) Update() {
 			}
 		}
 	} else {
-		for i := 1; i < p.RigidBody.Height-1; i++ {
+		for i := 0; i < p.RigidBody.Height; i++ {
 			for y := 1; y < 4; y++ {
 				p.Map.Set(p.RigidBody.X+y, p.RigidBody.Y+i, Chen)
 			}
