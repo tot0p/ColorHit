@@ -3,8 +3,6 @@ package dep
 import (
 	"image"
 	"image/color"
-	"math/rand"
-	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
 )
@@ -17,9 +15,8 @@ type Map struct {
 	Coin      []*Coin
 }
 
-func (m *Map) AddCoin() {
-	rand.Seed(time.Now().Unix())
-	m.Coin = append(m.Coin, CreateCoin(rand.Intn(3)+1, 0, 0))
+func (m *Map) AddCoin(x, y, t int) {
+	m.Coin = append(m.Coin, CreateCoin(t, x, y))
 }
 
 func (m *Map) Draw(screen *ebiten.Image) {

@@ -16,13 +16,13 @@ func CreateCoin(tier int, x, y int) *Coin {
 	var img *ebiten.Image = LoadImg("data/img/props.png")
 	switch tier {
 	case 1:
-		img = img.SubImage(image.Rect(144, 16, 160, 32)).(*ebiten.Image)
+		img = img.SubImage(image.Rect(112, 16, 128, 32)).(*ebiten.Image)
 	case 2:
-		img = img.SubImage(image.Rect(160, 16, 176, 32)).(*ebiten.Image)
+		img = img.SubImage(image.Rect(128, 16, 144, 32)).(*ebiten.Image)
 	default:
-		img = img.SubImage(image.Rect(176, 16, 192, 32)).(*ebiten.Image)
+		img = img.SubImage(image.Rect(144, 16, 160, 32)).(*ebiten.Image)
 	}
-	return &Coin{tier, img, RigidBody{0, 0, 16, 16}}
+	return &Coin{tier, img, RigidBody{x, y, 16, 16}}
 }
 
 func (c *Coin) Draw(screen *ebiten.Image) {

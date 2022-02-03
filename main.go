@@ -99,7 +99,7 @@ func main() {
 	ebiten.SetMaxTPS(60)
 	ebiten.SetWindowResizable(true)
 	ebiten.SetFullscreen(false)
-	ebiten.SetWindowIcon([]image.Image{dep.LoadImgImage("data/logo.png")})
+	ebiten.SetWindowIcon([]image.Image{dep.LoadImgImage("data/logo16.png"), dep.LoadImgImage("data/logo32.png"), dep.LoadImgImage("data/logo48.png")})
 	if err := ebiten.RunGame(game); err != nil {
 		log.Fatal(err)
 	}

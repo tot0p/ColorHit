@@ -2,6 +2,8 @@ package dep
 
 import (
 	"fmt"
+	"math/rand"
+	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
@@ -24,11 +26,12 @@ func (g *GameBody) Draw(screen *ebiten.Image) {
 }
 
 func (g *GameBody) Update() bool {
+	rand.Seed(time.Now().Unix())
 	g.Count++
 	g.Player.Update(g.Count)
 	g.M.Update()
-	if (g.Count/60)%5 == 0 {
-		g.M.AddCoin()
+	if g.Count%(60*5) == 0 {
+		g.M.AddCoin(rand.Intn(500), rand.Intn(300), rand.Intn(3)+1)
 	}
 	return !(g.Count/60 == 60)
 }

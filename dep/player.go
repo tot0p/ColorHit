@@ -51,19 +51,19 @@ func (p *Player) Update(count int) {
 	}
 	if p.Angle == 90 || p.Angle == 270 {
 		for i := 0; i < p.RigidBody.Width; i++ {
-			for y := 1; y < 4; y++ {
+			for y := 0; y < 3; y++ {
 				p.Map.Set(p.RigidBody.X+i, p.RigidBody.Y+y, Chen)
 			}
-			for y := 12; y < 15; y++ {
+			for y := 13; y < 16; y++ {
 				p.Map.Set(p.RigidBody.X+i, p.RigidBody.Y+y, Chen)
 			}
 		}
 	} else {
 		for i := 0; i < p.RigidBody.Height; i++ {
-			for y := 1; y < 4; y++ {
+			for y := 0; y < 3; y++ {
 				p.Map.Set(p.RigidBody.X+y, p.RigidBody.Y+i, Chen)
 			}
-			for y := 12; y < 15; y++ {
+			for y := 13; y < 16; y++ {
 				p.Map.Set(p.RigidBody.X+y, p.RigidBody.Y+i, Chen)
 			}
 		}
