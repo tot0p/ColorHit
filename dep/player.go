@@ -68,6 +68,7 @@ func (p *Player) Update(count int) {
 			}
 		}
 	}
+	p.Map.Point += p.Map.CoinCheck(p.RigidBody)
 }
 
 func (p *Player) Draw(screen *ebiten.Image) {

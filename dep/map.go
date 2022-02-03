@@ -27,7 +27,9 @@ func (m *Map) Draw(screen *ebiten.Image) {
 		i.Draw(screen)
 	}
 	for _, i := range m.Coin {
-		i.Draw(screen)
+		if i != nil {
+			i.Draw(screen)
+		}
 	}
 	if m.Proj != nil {
 		m.Proj.Draw(screen)
@@ -50,6 +52,19 @@ func (m *Map) Collide(r *RigidBody) bool {
 		}
 	}
 	return false
+}
+
+func (m *Map) CoinCheck(r *RigidBody) int {
+	for k, i := range m.Coin {
+		if i != nil {
+			if r.CollideCenter(&i.RigidBody) {
+				t := i.GetPoint()
+				m.Coin[k] = nil
+				return t
+			}
+		}
+	}
+	return 0
 }
 
 func (m *Map) Set(x, y int, color color.Color) {

@@ -35,10 +35,10 @@ func (c *Coin) Draw(screen *ebiten.Image) {
 func (c *Coin) GetPoint() int {
 	switch c.Tier {
 	case 1:
-		return 5000
+		return 500
 	case 2:
-		return 10000
+		return 1000
 	default:
-		return 25000
+		return 2500
 	}
 }

@@ -1,14 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"image"
 	"log"
 	"math/rand"
 	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/tot0p/JamOneMinute/dep"
 )
 
@@ -23,6 +21,7 @@ var (
 	game  *Game
 	debug bool
 	temp  int
+	start bool = true
 )
 
 type Game struct {
@@ -30,12 +29,14 @@ type Game struct {
 	count    int
 	start    bool
 	Acc      *dep.Acc
+	Sco      *dep.Sco
 }
 
 func (g *Game) Update() error {
 	if g.start {
 		g.start = g.gamebody.Update()
 		if !g.start {
+			g.Sco.SetScore(g.gamebody.M.Point)
 			t := &dep.Map{ebiten.NewImage(resolWidth, resolHeight), 0, nil, dep.AllStructure, []*dep.Coin{}}
 			img := dep.LoadImg("data/img/tank.png")
 			g.gamebody = &dep.GameBody{
@@ -44,12 +45,11 @@ func (g *Game) Update() error {
 				0,
 			}
 		}
-	} else {
+	} else if start {
 		g.start = g.Acc.Update(&temp, &g.count)
-	}
-	if ebiten.IsKeyPressed(ebiten.KeyF3) && temp+15 < g.count {
-		debug = !debug
-		temp = g.count
+		start = !g.start
+	} else {
+		g.start = g.Sco.Update(&temp, &g.count)
 	}
 	return nil
 }
@@ -57,13 +57,10 @@ func (g *Game) Update() error {
 func (g *Game) Draw(screen *ebiten.Image) {
 	if g.start {
 		g.gamebody.Draw(screen)
-	} else {
+	} else if start {
 		g.Acc.Draw(screen)
-	}
-	//debug
-	if debug {
-		msg := fmt.Sprintf(`TPS: %0.2f FPS: %0.2f`, ebiten.CurrentTPS(), ebiten.CurrentFPS())
-		ebitenutil.DebugPrint(screen, msg)
+	} else {
+		g.Sco.Draw(screen)
 	}
 }
 
@@ -88,6 +85,13 @@ func init() {
 			dep.LoadImg("data/ui/menu.png"),
 			dep.RigidBody{224, 192, 64, 32},
 			dep.RigidBody{224, 240, 64, 32},
+		},
+		&dep.Sco{
+			dep.LoadImg("data/ui/score_menu.png"),
+			dep.RigidBody{192, 240, 128, 32},
+			dep.RigidBody{224, 288, 64, 32},
+			0,
+			0,
 		},
 	}
 	dep.Chen = dep.Pal[rand.Intn(len(dep.Pal))]
