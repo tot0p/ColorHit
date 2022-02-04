@@ -16,10 +16,18 @@ type Map struct {
 	Proj      *Projectile
 	Structure []*Structure
 	Coin      []*Coin
+	Add       []Add
 }
 
 func (m *Map) AddCoin(x, y, t int) {
 	m.Coin = append(m.Coin, CreateCoin(t, x, y))
+}
+
+func (m *Map) AddAdd(x, y, t int) {
+	switch t {
+	default:
+		m.Add = append(m.Add, CreateAmmo(x, y, 16, 16))
+	}
 }
 
 func (m *Map) Draw(screen *ebiten.Image) {
@@ -34,12 +42,17 @@ func (m *Map) Draw(screen *ebiten.Image) {
 			i.Draw(screen)
 		}
 	}
+	for _, i := range m.Add {
+		if i != nil {
+			i.Draw(screen)
+		}
+	}
 	if m.Proj != nil {
 		m.Proj.Draw(screen)
 	}
 }
 
-func (m *Map) Update() {
+func (m *Map) Update(p *Player) {
 	if m.Proj != nil {
 		t := m.Proj.Update() || m.CollideBall()
 		if t {
@@ -55,6 +68,13 @@ func (m *Map) Update() {
 			i.Time -= 1
 			if i.Time <= 0 {
 				m.Coin[k] = nil
+			}
+		}
+	}
+	for k, i := range m.Add {
+		if i != nil {
+			if i.Update(p) {
+				m.Add[k] = nil
 			}
 		}
 	}

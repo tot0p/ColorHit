@@ -31,9 +31,10 @@ func (g *GameBody) Update() bool {
 	rand.Seed(time.Now().Unix())
 	g.Count++
 	g.Player.Update(g.Count)
-	g.M.Update()
+	g.M.Update(g.Player)
 	if g.Count%(60*5) == 0 {
 		g.M.AddCoin(rand.Intn(500), rand.Intn(300), rand.Intn(3)+1)
+		g.M.AddAdd(rand.Intn(500), rand.Intn(300), rand.Intn(3)+1)
 	}
 	return !(g.Count/60 == 60)
 }
