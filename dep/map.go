@@ -3,6 +3,8 @@ package dep
 import (
 	"image"
 	"image/color"
+	"math/rand"
+	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
 )
@@ -43,7 +45,7 @@ func (m *Map) Update() {
 			op := &ebiten.DrawImageOptions{}
 			op.GeoM.Translate(m.Proj.X-8, m.Proj.Y-8)
 			m.Point += 188
-			m.Img.DrawImage(LoadImg("data/img/props.png").SubImage(image.Rect(144, 48, 160, 64)).(*ebiten.Image), op)
+			m.Img.DrawImage(LoadImg("data/img/props.png").SubImage(image.Rect(144+16*m.Proj.Tier, 48, 160+16*m.Proj.Tier, 64)).(*ebiten.Image), op)
 			m.Proj = nil
 		}
 	}
@@ -95,6 +97,8 @@ func (m *Map) NewProjectile(x, y, destX, destY, speedx, speedy float64, angle in
 		if y < destY {
 			yt = true
 		}
-		m.Proj = &Projectile{x, y, LoadImg("data/img/tank.png").SubImage(image.Rect(32, 0, 48, 16)).(*ebiten.Image), &Mouv{speedx, speedy, destX, destY, x, y, xt, yt}, angle, RigidBody{int(x - 2), int(y - 2), 4, 4}}
+		rand.Seed(time.Now().Unix())
+		t := rand.Intn(5)
+		m.Proj = &Projectile{x, y, LoadImg("data/img/tank.png").SubImage(image.Rect(32+16*t, 0, 48+16*t, 16)).(*ebiten.Image), &Mouv{speedx, speedy, destX, destY, x, y, xt, yt}, angle, RigidBody{int(x - 2), int(y - 2), 4, 4}, t}
 	}
 }

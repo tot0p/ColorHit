@@ -12,6 +12,7 @@ type Projectile struct {
 	Mouv      *Mouv
 	Angle     int
 	RigidBody RigidBody
+	Tier      int
 }
 
 func (p *Projectile) Draw(screen *ebiten.Image) {
