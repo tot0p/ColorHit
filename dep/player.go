@@ -15,6 +15,7 @@ type Player struct {
 	ImgData, ImgData1 *ebiten.Image
 	Angle             int
 	Angle2            int
+	NBBall            int
 }
 
 func (p *Player) Update(count int) {
@@ -46,7 +47,8 @@ func (p *Player) Update(count int) {
 	posx, posy := ebiten.CursorPosition()
 	vx, vy := float64(p.RigidBody.X-posx), float64(p.RigidBody.Y-posy)
 	p.Angle2 = int(math.Atan2(vy, vx)*180/math.Pi) - 90
-	if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) && p.Map.Proj == nil && count >= 15 {
+	if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) && p.Map.Proj == nil && count >= 15 && p.NBBall > 0 {
+		p.NBBall--
 		t := math.Sqrt(math.Pow(float64(p.RigidBody.X+8-posx), 2)+math.Pow(float64(p.RigidBody.Y+8-posy), 2)) * 0.15
 		p.Map.NewProjectile(float64(p.RigidBody.X+8), float64(p.RigidBody.Y+8), float64(posx), float64(posy), float64(p.RigidBody.X+8-posx)/t, float64(p.RigidBody.Y+8-posy)/t, p.Angle2)
 	}

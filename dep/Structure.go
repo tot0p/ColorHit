@@ -51,6 +51,14 @@ var AllStructure = []*Structure{
 
 type Structure []Tile
 
+func (s *Structure) GetRigidBodys() []*RigidBody {
+	t := []*RigidBody{}
+	for _, i := range *s {
+		t = append(t, i.RigidBody)
+	}
+	return t
+}
+
 func (s *Structure) Draw(screen *ebiten.Image) {
 	for _, i := range *s {
 		i.Draw(screen)
