@@ -40,6 +40,10 @@ func (m *Map) Update() {
 	if m.Proj != nil {
 		t := m.Proj.Update()
 		if t {
+			op := &ebiten.DrawImageOptions{}
+			op.GeoM.Translate(m.Proj.X-8, m.Proj.Y-8)
+			m.Point += 188
+			m.Img.DrawImage(LoadImg("data/img/props.png").SubImage(image.Rect(144, 48, 160, 64)).(*ebiten.Image), op)
 			m.Proj = nil
 		}
 	}
@@ -91,6 +95,6 @@ func (m *Map) NewProjectile(x, y, destX, destY, speedx, speedy float64, angle in
 		if y < destY {
 			yt = true
 		}
-		m.Proj = &Projectile{x, y, LoadImg("data/img/tank.png").SubImage(image.Rect(32, 0, 48, 16)).(*ebiten.Image), &Mouv{speedx, speedy, destX, destY, x, y, xt, yt}, angle}
+		m.Proj = &Projectile{x, y, LoadImg("data/img/tank.png").SubImage(image.Rect(32, 0, 48, 16)).(*ebiten.Image), &Mouv{speedx, speedy, destX, destY, x, y, xt, yt}, angle, RigidBody{int(x - 2), int(y - 2), 4, 4}}
 	}
 }
