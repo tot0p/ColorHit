@@ -26,5 +26,7 @@ func (p *Projectile) Draw(screen *ebiten.Image) {
 }
 
 func (p *Projectile) Update() bool {
-	return p.Mouv.Apply(&p.X, &p.Y)
+	t := p.Mouv.Apply(&p.X, &p.Y)
+	p.RigidBody.Update(p.X-2, p.Y-2)
+	return t
 }

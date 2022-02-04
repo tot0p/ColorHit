@@ -42,7 +42,6 @@ func (m *Map) Draw(screen *ebiten.Image) {
 func (m *Map) Update() {
 	if m.Proj != nil {
 		t := m.Proj.Update() || m.CollideBall()
-		fmt.Println(t)
 		if t {
 			op := &ebiten.DrawImageOptions{}
 			op.GeoM.Translate(m.Proj.X-8, m.Proj.Y-8)
@@ -63,10 +62,9 @@ func (m *Map) Update() {
 
 func (m *Map) CollideBall() bool {
 	for _, i := range m.Structure {
-		for _, k := range i.GetRigidBodys() {
-			if m.Proj.RigidBody.Collide(k) {
-				return true
-			}
+		if i.Collide(&m.Proj.RigidBody) {
+			fmt.Println("yes")
+			return true
 		}
 	}
 	return false
