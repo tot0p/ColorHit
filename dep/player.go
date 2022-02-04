@@ -1,6 +1,7 @@
 package dep
 
 import (
+	"fmt"
 	"math"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -47,7 +48,8 @@ func (p *Player) Update(count int) {
 	vx, vy := float64(p.RigidBody.X-posx), float64(p.RigidBody.Y-posy)
 	p.Angle2 = int(math.Atan2(vy, vx)*180/math.Pi) - 90
 	if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) && p.Map.Proj == nil && count >= 15 {
-		p.Map.NewProjectile(float64(p.RigidBody.X+8), float64(p.RigidBody.Y+8), float64(posx), float64(posy), float64(p.RigidBody.X-posx)/30, float64(p.RigidBody.Y-posy)/30, p.Angle2)
+		fmt.Println("x: ", float64(p.RigidBody.X+8-posx)/30, " y : ", float64(p.RigidBody.Y+8-posy)/30)
+		p.Map.NewProjectile(float64(p.RigidBody.X+8), float64(p.RigidBody.Y+8), float64(posx), float64(posy), float64(p.RigidBody.X+8-posx)/30, float64(p.RigidBody.Y+8-posy)/30, p.Angle2)
 	}
 	if p.Angle == 90 || p.Angle == 270 {
 		for i := 0; i < p.RigidBody.Width; i++ {

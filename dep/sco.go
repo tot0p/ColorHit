@@ -15,6 +15,19 @@ type Sco struct {
 	BestScore, CurrentScore int
 }
 
+func LoadScore() int {
+	t, err := LoadJson("data/save.json")
+	if err != nil {
+		t = map[string]int{"BestScore": 0}
+		WriteJson("data/save.json", t)
+	}
+	if _, exist := t["BestScore"]; !exist {
+		t = map[string]int{"BestScore": 0}
+		WriteJson("data/save.json", t)
+	}
+	return t["BestScore"]
+}
+
 func (s *Sco) SetScore(Score int) {
 	if Score > s.BestScore {
 		s.BestScore = Score
