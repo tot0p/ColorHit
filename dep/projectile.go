@@ -1,6 +1,7 @@
 package dep
 
 import (
+	"fmt"
 	"math"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -26,5 +27,6 @@ func (p *Projectile) Draw(screen *ebiten.Image) {
 }
 
 func (p *Projectile) Update() bool {
+	fmt.Println(p.X, " ", p.Y)
 	return p.Mouv.Apply(&p.X, &p.Y)
 }
