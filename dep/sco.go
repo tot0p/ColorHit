@@ -30,16 +30,20 @@ func LoadScore() int {
 
 func (s *Sco) SetScore(Score int) {
 	if Score > s.BestScore {
-		s.BestScore = Score
+		s.BestScore = Score / 10 * 100
+		t := map[string]int{"BestScore": Score}
+		WriteJson("data/save.json", t)
 	}
-	s.CurrentScore = Score
+	s.CurrentScore = Score / 10 * 100
 }
 
 func (s *Sco) Draw(screen *ebiten.Image) {
 	op := &ebiten.DrawImageOptions{}
-	msg := fmt.Sprintf(`Point : %d`, s.CurrentScore/10*100)
+	msg := fmt.Sprintf(`Point : %d`, s.CurrentScore)
+	msg2 := fmt.Sprintf(`Best Point : %d`, s.BestScore)
 	screen.DrawImage(s.Img, op)
 	ebitenutil.DebugPrintAt(screen, msg, 224, 172)
+	ebitenutil.DebugPrintAt(screen, msg2, 224, 188)
 }
 
 func (s *Sco) Update(temp, count *int) bool {

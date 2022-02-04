@@ -102,7 +102,7 @@ func init() {
 			dep.LoadImg("data/ui/score_menu.png"),
 			dep.RigidBody{192, 240, 128, 32},
 			dep.RigidBody{224, 288, 64, 32},
-			0,
+			dep.LoadScore(),
 			0,
 		},
 	}
@@ -115,7 +115,7 @@ func main() {
 	ebiten.SetWindowTitle("Color Hit")
 	ebiten.SetMaxTPS(60)
 	ebiten.SetWindowResizable(true)
-	ebiten.SetFullscreen(false)
+	//ebiten.SetFullscreen(true)
 	ebiten.SetWindowIcon([]image.Image{dep.LoadImgImage("data/logo16.png"), dep.LoadImgImage("data/logo32.png"), dep.LoadImgImage("data/logo48.png")})
 	if err := ebiten.RunGame(game); err != nil {
 		log.Fatal(err)
