@@ -18,10 +18,12 @@ const (
 )
 
 var (
-	game  *Game
-	debug bool
-	temp  int
-	start bool = true
+	cursorGame = dep.LoadImg("data/img/icons.png").SubImage(image.Rect(112, 80, 127, 95)).(*ebiten.Image)
+	cursorMenu = dep.LoadImg("data/img/icons.png").SubImage(image.Rect(128, 80, 144, 96)).(*ebiten.Image)
+	game       *Game
+	debug      bool
+	temp       int
+	start      bool = true
 )
 
 type Game struct {
@@ -36,6 +38,7 @@ func (g *Game) Update() error {
 	if g.start {
 		g.start = g.gamebody.Update()
 		if !g.start {
+			dep.Chen = dep.Pal[rand.Intn(len(dep.Pal))]
 			g.Sco.SetScore(g.gamebody.M.Point)
 			t := &dep.Map{ebiten.NewImage(resolWidth, resolHeight), 0, nil, dep.AllStructure, []*dep.Coin{}}
 			img := dep.LoadImg("data/img/tank.png")
@@ -61,6 +64,15 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		g.Acc.Draw(screen)
 	} else {
 		g.Sco.Draw(screen)
+	}
+	t, x := ebiten.CursorPosition()
+	op := &ebiten.DrawImageOptions{}
+	op.GeoM.Translate(float64(t), float64(x))
+	if g.start {
+		op.GeoM.Translate(-7, -7)
+		screen.DrawImage(cursorGame, op)
+	} else {
+		screen.DrawImage(cursorMenu, op)
 	}
 }
 
@@ -98,6 +110,7 @@ func init() {
 }
 
 func main() {
+	ebiten.SetCursorMode(ebiten.CursorModeHidden)
 	ebiten.SetWindowSize(screenWidth*2, screenHeight*2)
 	ebiten.SetWindowTitle("Color Hit")
 	ebiten.SetMaxTPS(60)
