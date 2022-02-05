@@ -21,7 +21,6 @@ var (
 	cursorGame = dep.LoadImg("data/img/icons.png").SubImage(image.Rect(112, 80, 127, 95)).(*ebiten.Image)
 	cursorMenu = dep.LoadImg("data/img/icons.png").SubImage(image.Rect(128, 80, 144, 96)).(*ebiten.Image)
 	game       *Game
-	debug      bool
 	temp       int
 	start      bool = true
 )
@@ -89,7 +88,6 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 
 func init() {
 	rand.Seed(time.Now().Unix())
-	debug = false
 	t := &dep.Map{ebiten.NewImage(resolWidth, resolHeight), 0, nil, dep.AllMap[rand.Intn(len(dep.AllMap))], []*dep.Coin{}, []dep.Add{}}
 	img := dep.LoadImg("data/img/tank.png")
 	game = &Game{
