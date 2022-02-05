@@ -49,6 +49,7 @@ func (g *Game) Update() error {
 				[]int{},
 				[]int{},
 			}
+			g.gamebody.Player.RigidBody.X, g.gamebody.Player.RigidBody.Y = game.gamebody.CreateSpawn()
 		}
 	} else if start {
 		g.start = g.Acc.Update(&temp, &g.count)
@@ -110,6 +111,7 @@ func init() {
 			0,
 		},
 	}
+	game.gamebody.Player.RigidBody.X, game.gamebody.Player.RigidBody.Y = game.gamebody.CreateSpawn()
 	dep.Chen = dep.Pal[rand.Intn(len(dep.Pal))]
 }
 

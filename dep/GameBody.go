@@ -12,8 +12,8 @@ import (
 )
 
 const (
-	xc = 32
-	yc = 24
+	xc = 31
+	yc = 23
 )
 
 type GameBody struct {
