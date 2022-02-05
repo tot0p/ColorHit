@@ -31,13 +31,7 @@ var AllImg []*ebiten.Image = []*ebiten.Image{
 var AllMap = [][]*Structure{
 	{
 		{
-			{
-				true,
-				&RigidBody{
-					64, 64, 16, 16,
-				},
-				AllImg[6],
-			},
+			CreateTile(64, 64, true, AllImg[6]),
 			{
 				true,
 				&RigidBody{
@@ -331,6 +325,10 @@ var AllMap = [][]*Structure{
 			},
 		},
 	},
+}
+
+func CreateTile(x, y int, isSolid bool, img *ebiten.Image) Tile {
+	return Tile{isSolid, &RigidBody{x, y, 16, 16}, img}
 }
 
 type Structure []Tile
