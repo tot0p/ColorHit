@@ -17,9 +17,10 @@ const (
 )
 
 type GameBody struct {
-	Player *Player
-	M      *Map
-	Count  int
+	Player               *Player
+	M                    *Map
+	Count                int
+	ForbidenX, ForbidenY []int
 }
 
 func (g *GameBody) Draw(screen *ebiten.Image) {
@@ -59,7 +60,6 @@ func (g *GameBody) Update() bool {
 	if g.Count%(60*5) == 0 {
 		x, y := g.CreateSpawn()
 		g.M.AddCoin(x, y, rand.Intn(3)+1)
-		x, y = 0, 0
 		x, y = g.CreateSpawn()
 		g.M.AddAdd(x, y, rand.Intn(3)+1)
 	}
@@ -67,7 +67,6 @@ func (g *GameBody) Update() bool {
 }
 
 func (g *GameBody) CreateSpawn() (int, int) {
-	rand.Seed(time.Now().Unix())
 	x, y := rand.Intn(xc), rand.Intn(yc)
 	for g.M.Collide(&RigidBody{x * 16, y * 16, 16, 16}) {
 		x, y = rand.Intn(xc), rand.Intn(yc)

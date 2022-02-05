@@ -46,6 +46,8 @@ func (g *Game) Update() error {
 				&dep.Player{&dep.RigidBody{resolWidth/2 - 4, resolHeight/2 - 4, 16, 16}, resolWidth, resolHeight, t, img.SubImage(image.Rect(0, 0, 16, 16)).(*ebiten.Image), img.SubImage(image.Rect(16, 0, 32, 16)).(*ebiten.Image), 0, 0, 3},
 				t,
 				0,
+				[]int{},
+				[]int{},
 			}
 		}
 	} else if start {
@@ -90,6 +92,8 @@ func init() {
 			&dep.Player{&dep.RigidBody{resolWidth/2 - 4, resolHeight/2 - 4, 16, 16}, resolWidth, resolHeight, t, img.SubImage(image.Rect(0, 0, 16, 16)).(*ebiten.Image), img.SubImage(image.Rect(16, 0, 32, 16)).(*ebiten.Image), 0, 0, 3},
 			t,
 			0,
+			[]int{},
+			[]int{},
 		},
 		0,
 		false,
