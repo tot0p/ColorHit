@@ -23,7 +23,7 @@ type VX struct {
 func (v *VX) Update(p *Player) bool {
 	v.Time--
 	if v.RigidBody.CollideCenter(p.RigidBody) {
-		p.VB += v.Velocity
+		p.VB = v.Velocity
 		p.Time = 300
 		return true
 	} else if v.Time <= 0 {
