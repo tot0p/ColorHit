@@ -11,6 +11,11 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
+const (
+	xc = 32
+	yc = 24
+)
+
 type GameBody struct {
 	Player *Player
 	M      *Map
@@ -52,8 +57,20 @@ func (g *GameBody) Update() bool {
 	g.Player.Update(g.Count)
 	g.M.Update(g.Player)
 	if g.Count%(60*5) == 0 {
-		g.M.AddCoin(rand.Intn(500), rand.Intn(300), rand.Intn(3)+1)
-		g.M.AddAdd(rand.Intn(500), rand.Intn(300), rand.Intn(3)+1)
+		x, y := g.CreateSpawn()
+		g.M.AddCoin(x, y, rand.Intn(3)+1)
+		x, y = 0, 0
+		x, y = g.CreateSpawn()
+		g.M.AddAdd(x, y, rand.Intn(3)+1)
 	}
 	return !(g.Count/60 == 60)
+}
+
+func (g *GameBody) CreateSpawn() (int, int) {
+	rand.Seed(time.Now().Unix())
+	x, y := rand.Intn(xc), rand.Intn(yc)
+	for g.M.Collide(&RigidBody{x * 16, y * 16, 16, 16}) {
+		x, y = rand.Intn(xc), rand.Intn(yc)
+	}
+	return x * 16, y * 16
 }
