@@ -50,6 +50,7 @@ func (g *GameBody) Draw(screen *ebiten.Image) {
 	}
 	msg := fmt.Sprintf(": %d", g.Player.NBBall)
 	ebitenutil.DebugPrintAt(screen, msg, 42, 360)
+	g.Player.DrawGUI(screen)
 }
 
 func (g *GameBody) Update() bool {
@@ -63,7 +64,7 @@ func (g *GameBody) Update() bool {
 		x, y = g.CreateSpawn()
 		g.M.AddAdd(x, y, 5)
 		x, y = g.CreateSpawn()
-		g.M.AddAdd(x, y, 1)
+		g.M.AddAdd(x, y, rand.Intn(3)+1)
 	}
 	return !(g.Count/60 == 60)
 }

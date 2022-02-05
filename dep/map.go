@@ -26,6 +26,10 @@ func (m *Map) AddAdd(x, y, t int) {
 	switch t {
 	case 1:
 		m.Add = append(m.Add, CreateX2(x, y))
+	case 2:
+		m.Add = append(m.Add, CreateX4(x, y))
+	case 3:
+		m.Add = append(m.Add, CreateD2(x, y))
 	default:
 		m.Add = append(m.Add, CreateAmmo(x, y, 16, 16))
 	}

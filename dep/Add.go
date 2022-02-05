@@ -81,13 +81,13 @@ func CreateAmmo(x, y, w, h int) Add {
 }
 
 func CreateX2(x, y int) Add {
-	return Add(&VX{1, LoadImg("data/img/icons.png").SubImage(image.Rect(112, 32, 128, 48)).(*ebiten.Image), 600, RigidBody{x, y, 16, 16}})
+	return Add(&VX{1, LoadImg("data/img/props.png").SubImage(image.Rect(112, 48, 128, 64)).(*ebiten.Image), 600, RigidBody{x, y, 16, 16}})
 }
 
 func CreateX4(x, y int) Add {
-	return Add(&VX{2, LoadImg("data/img/icons.png").SubImage(image.Rect(128, 32, 144, 48)).(*ebiten.Image), 600, RigidBody{x, y, 16, 16}})
+	return Add(&VX{2, LoadImg("data/img/props.png").SubImage(image.Rect(112, 48, 128, 64)).(*ebiten.Image), 600, RigidBody{x, y, 16, 16}})
 }
 
 func CreateD2(x, y int) Add {
-	return Add(&VX{-1, LoadImg("data/img/icons.png").SubImage(image.Rect(144, 32, 160, 48)).(*ebiten.Image), 600, RigidBody{x, y, 16, 16}})
+	return Add(&VX{-1, LoadImg("data/img/props.png").SubImage(image.Rect(112, 48, 128, 64)).(*ebiten.Image), 600, RigidBody{x, y, 16, 16}})
 }
