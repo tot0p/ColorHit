@@ -32,13 +32,7 @@ var AllMap = [][]*Structure{
 	{
 		{
 			CreateTile(64, 64, true, AllImg[6]),
-			{
-				true,
-				&RigidBody{
-					80, 64, 16, 16,
-				},
-				AllImg[7],
-			},
+			CreateTile(80, 64, true, AllImg[7]),
 			{
 				true,
 				&RigidBody{
