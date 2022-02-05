@@ -34,6 +34,7 @@ func (g *GameBody) Draw(screen *ebiten.Image) {
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(5, 180)
 	op.GeoM.Scale(2, 2)
+	g.Player.DrawGUI(screen)
 	switch g.Player.NBBall {
 	case 0:
 		return
@@ -52,7 +53,6 @@ func (g *GameBody) Draw(screen *ebiten.Image) {
 		msg := fmt.Sprintf(": %d", g.Player.NBBall)
 		ebitenutil.DebugPrintAt(screen, msg, 42, 360)
 	}
-	g.Player.DrawGUI(screen)
 }
 
 func (g *GameBody) Update() bool {
