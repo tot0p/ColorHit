@@ -14,9 +14,28 @@ type Add interface {
 }
 
 type VX struct {
-	Velocity int
-	Img      *ebiten.Image
-	Time     int
+	Velocity  int
+	Img       *ebiten.Image
+	Time      int
+	RigidBody RigidBody
+}
+
+func (v *VX) Update(p *Player) bool {
+	v.Time--
+	if v.RigidBody.CollideCenter(p.RigidBody) {
+		p.VB += v.Velocity
+		p.Time = 300
+		return true
+	} else if v.Time <= 0 {
+		return true
+	}
+	return false
+}
+
+func (v *VX) Draw(screen *ebiten.Image) {
+	op := &ebiten.DrawImageOptions{}
+	op.GeoM.Translate(float64(v.RigidBody.X), float64(v.RigidBody.Y))
+	screen.DrawImage(v.Img, op)
 }
 
 //Ammo
@@ -59,4 +78,8 @@ func CreateAmmo(x, y, w, h int) Add {
 	}
 	var temp Add = &Ammo{t, RigidBody{x, y, w, h}, img, 600}
 	return temp
+}
+
+func CreateX2(x, y int) Add {
+	return Add(&VX{2, LoadImg("data/img/icons.png").SubImage(image.Rect(112, 48, 128, 64)).(*ebiten.Image), 600, RigidBody{x, y, 16, 16}})
 }

@@ -24,6 +24,8 @@ func (m *Map) AddCoin(x, y, t int) {
 
 func (m *Map) AddAdd(x, y, t int) {
 	switch t {
+	case 1:
+		m.Add = append(m.Add, CreateX2(x, y))
 	default:
 		m.Add = append(m.Add, CreateAmmo(x, y, 16, 16))
 	}

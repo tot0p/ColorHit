@@ -16,32 +16,40 @@ type Player struct {
 	Angle             int
 	Angle2            int
 	NBBall            int
+	VB                int
+	Time              int
 }
 
 func (p *Player) Update(count int) {
+	if p.VB != 0 {
+		p.Time--
+		if p.Time <= 0 {
+			p.VB = 0
+		}
+	}
 	if (ebiten.IsKeyPressed(ebiten.KeyA) || ebiten.IsKeyPressed(ebiten.KeyArrowLeft)) && p.RigidBody.X > 0 {
-		p.RigidBody.X -= velocity
+		p.RigidBody.X -= velocity + p.VB
 		p.Angle = 270
 		if p.Map.Collide(p.RigidBody) {
-			p.RigidBody.X += velocity
+			p.RigidBody.X += velocity + p.VB
 		}
 	} else if (ebiten.IsKeyPressed(ebiten.KeyD) || ebiten.IsKeyPressed(ebiten.KeyArrowRight)) && p.RigidBody.X < p.RW-p.RigidBody.Width {
 		p.RigidBody.X += velocity
 		p.Angle = 90
 		if p.Map.Collide(p.RigidBody) {
-			p.RigidBody.X -= velocity
+			p.RigidBody.X -= velocity + p.VB
 		}
 	} else if (ebiten.IsKeyPressed(ebiten.KeyW) || ebiten.IsKeyPressed(ebiten.KeyArrowUp)) && p.RigidBody.Y > 0 {
-		p.RigidBody.Y -= velocity
+		p.RigidBody.Y -= velocity + p.VB
 		p.Angle = 0
-		for p.Map.Collide(p.RigidBody) {
-			p.RigidBody.Y += 1
+		if p.Map.Collide(p.RigidBody) {
+			p.RigidBody.Y += velocity + p.VB
 		}
 	} else if (ebiten.IsKeyPressed(ebiten.KeyS) || ebiten.IsKeyPressed(ebiten.KeyArrowDown)) && p.RigidBody.Y < p.RH-p.RigidBody.Height {
-		p.RigidBody.Y += velocity
+		p.RigidBody.Y += velocity + p.VB
 		p.Angle = 180
 		if p.Map.Collide(p.RigidBody) {
-			p.RigidBody.Y -= velocity
+			p.RigidBody.Y -= velocity + p.VB
 		}
 	}
 	posx, posy := ebiten.CursorPosition()

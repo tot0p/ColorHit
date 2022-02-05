@@ -46,7 +46,7 @@ func (g *Game) Update() error {
 			t := &dep.Map{ebiten.NewImage(resolWidth, resolHeight), 0, nil, dep.AllMap[rand.Intn(len(dep.AllMap))], []*dep.Coin{}, []dep.Add{}}
 			img := dep.LoadImg("data/img/tank.png")
 			g.gamebody = &dep.GameBody{
-				&dep.Player{&dep.RigidBody{resolWidth/2 - 4, resolHeight/2 - 4, 16, 16}, resolWidth, resolHeight, t, img.SubImage(image.Rect(0, 0, 16, 16)).(*ebiten.Image), img.SubImage(image.Rect(16, 0, 32, 16)).(*ebiten.Image), 0, 0, 3},
+				&dep.Player{&dep.RigidBody{resolWidth/2 - 4, resolHeight/2 - 4, 16, 16}, resolWidth, resolHeight, t, img.SubImage(image.Rect(0, 0, 16, 16)).(*ebiten.Image), img.SubImage(image.Rect(16, 0, 32, 16)).(*ebiten.Image), 0, 0, 3, 0, 0},
 				t,
 				0,
 				[]int{},
@@ -92,7 +92,7 @@ func init() {
 	img := dep.LoadImg("data/img/tank.png")
 	game = &Game{
 		&dep.GameBody{
-			&dep.Player{&dep.RigidBody{resolWidth/2 - 4, resolHeight/2 - 4, 16, 16}, resolWidth, resolHeight, t, img.SubImage(image.Rect(0, 0, 16, 16)).(*ebiten.Image), img.SubImage(image.Rect(16, 0, 32, 16)).(*ebiten.Image), 0, 0, 3},
+			&dep.Player{&dep.RigidBody{resolWidth/2 - 4, resolHeight/2 - 4, 16, 16}, resolWidth, resolHeight, t, img.SubImage(image.Rect(0, 0, 16, 16)).(*ebiten.Image), img.SubImage(image.Rect(16, 0, 32, 16)).(*ebiten.Image), 0, 0, 3, 0, 0},
 			t,
 			0,
 			[]int{},
