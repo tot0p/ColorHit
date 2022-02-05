@@ -329,7 +329,17 @@ type Structure []Tile
 
 func (s *Structure) Draw(screen *ebiten.Image) {
 	for _, i := range *s {
-		i.Draw(screen)
+		if i.Colide {
+			i.Draw(screen)
+		}
+	}
+}
+
+func (s *Structure) DrawBefore(screen *ebiten.Image) {
+	for _, i := range *s {
+		if !i.Colide {
+			i.Draw(screen)
+		}
 	}
 }
 
