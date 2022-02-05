@@ -8,11 +8,38 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
+//mult
+type Mult struct {
+	Mult      float64
+	Img       *ebiten.Image
+	Time      int
+	RigidBody RigidBody
+}
+
+func (m *Mult) Update(p *Player) bool {
+	m.Time--
+	if m.RigidBody.CollideCenter(p.RigidBody) {
+		p.Map.Mult = m.Mult
+		p.Map.Time = 600
+		return true
+	} else if m.Time <= 0 {
+		return true
+	}
+	return false
+}
+
+func (m *Mult) Draw(screen *ebiten.Image) {
+	op := &ebiten.DrawImageOptions{}
+	op.GeoM.Translate(float64(m.RigidBody.X), float64(m.RigidBody.Y))
+	screen.DrawImage(m.Img, op)
+}
+
 type Add interface {
 	Update(p *Player) bool
 	Draw(screen *ebiten.Image)
 }
 
+//VX
 type VX struct {
 	Velocity  int
 	Img       *ebiten.Image
@@ -90,4 +117,16 @@ func CreateX4(x, y int) Add {
 
 func CreateD2(x, y int) Add {
 	return Add(&VX{-1, LoadImg("data/img/props.png").SubImage(image.Rect(112, 48, 128, 64)).(*ebiten.Image), 600, RigidBody{x, y, 16, 16}})
+}
+
+func CreateX2P(x, y int) Add {
+	return Add(&Mult{2, LoadImg("data/img/props.png").SubImage(image.Rect(112, 48, 128, 64)).(*ebiten.Image), 600, RigidBody{x, y, 16, 16}})
+}
+
+func CreateX4P(x, y int) Add {
+	return Add(&Mult{4, LoadImg("data/img/props.png").SubImage(image.Rect(112, 48, 128, 64)).(*ebiten.Image), 600, RigidBody{x, y, 16, 16}})
+}
+
+func CreateD2P(x, y int) Add {
+	return Add(&Mult{0.5, LoadImg("data/img/props.png").SubImage(image.Rect(112, 48, 128, 64)).(*ebiten.Image), 600, RigidBody{x, y, 16, 16}})
 }

@@ -113,6 +113,17 @@ func (p *Player) DrawGUI(screen *ebiten.Image) {
 	}
 	if p.VB != 0 {
 		screen.DrawImage(img, op)
-		op.GeoM.Translate(0, 9)
+		op.GeoM.Translate(0, 25)
+	}
+	switch p.Map.Mult {
+	case 0.5:
+		img = LoadImg("data/img/icons.png").SubImage(image.Rect(144, 48, 160, 64)).(*ebiten.Image)
+	case 2:
+		img = LoadImg("data/img/icons.png").SubImage(image.Rect(112, 48, 128, 64)).(*ebiten.Image)
+	case 4:
+		img = LoadImg("data/img/icons.png").SubImage(image.Rect(128, 48, 144, 64)).(*ebiten.Image)
+	}
+	if p.Map.Mult != 1 {
+		screen.DrawImage(img, op)
 	}
 }

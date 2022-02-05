@@ -16,6 +16,8 @@ type Map struct {
 	Structure []*Structure
 	Coin      []*Coin
 	Add       []Add
+	Mult      float64
+	Time      int
 }
 
 func (m *Map) AddCoin(x, y, t int) {
@@ -30,6 +32,12 @@ func (m *Map) AddAdd(x, y, t int) {
 		m.Add = append(m.Add, CreateX4(x, y))
 	case 3:
 		m.Add = append(m.Add, CreateD2(x, y))
+	case 4:
+		m.Add = append(m.Add, CreateD2P(x, y))
+	case 5:
+		m.Add = append(m.Add, CreateX2P(x, y))
+	case 6:
+		m.Add = append(m.Add, CreateX4P(x, y))
 	default:
 		m.Add = append(m.Add, CreateAmmo(x, y, 16, 16))
 	}
@@ -61,12 +69,18 @@ func (m *Map) Draw(screen *ebiten.Image) {
 }
 
 func (m *Map) Update(p *Player) {
+	if m.Mult != 0 {
+		m.Time--
+		if m.Time <= 0 {
+			m.Mult = 1
+		}
+	}
 	if m.Proj != nil {
 		t := m.Proj.Update() || m.CollideBall()
 		if t {
 			op := &ebiten.DrawImageOptions{}
 			op.GeoM.Translate(m.Proj.X-8, m.Proj.Y-8)
-			m.Point += 188
+			m.Point += int(188 * m.Mult)
 			m.Img.DrawImage(LoadImg("data/img/props.png").SubImage(image.Rect(144+16*m.Proj.Tier, 48, 160+16*m.Proj.Tier, 64)).(*ebiten.Image), op)
 			m.Proj = nil
 		}
@@ -120,10 +134,12 @@ func (m *Map) CoinCheck(r *RigidBody) int {
 }
 
 func (m *Map) Set(x, y int, color color.Color) {
+	temp := 0.0
 	if m.Img.At(x, y) != color {
 		m.Img.Set(x, y, color)
-		m.Point++
+		temp++
 	}
+	m.Point += int(temp * m.Mult)
 }
 
 func (m *Map) NewProjectile(x, y, destX, destY, speedx, speedy float64, angle int) {

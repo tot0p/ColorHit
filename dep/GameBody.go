@@ -62,9 +62,9 @@ func (g *GameBody) Update() bool {
 		x, y := g.CreateSpawn()
 		g.M.AddCoin(x, y, rand.Intn(3)+1)
 		x, y = g.CreateSpawn()
-		g.M.AddAdd(x, y, 5)
+		g.M.AddAdd(x, y, 48)
 		x, y = g.CreateSpawn()
-		g.M.AddAdd(x, y, rand.Intn(3)+1)
+		g.M.AddAdd(x, y, rand.Intn(6)+1)
 	}
 	return !(g.Count/60 == 60)
 }
