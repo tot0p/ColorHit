@@ -1,7 +1,6 @@
 package dep
 
 import (
-	"fmt"
 	"image"
 	"image/color"
 	"math/rand"
@@ -83,7 +82,6 @@ func (m *Map) Update(p *Player) {
 func (m *Map) CollideBall() bool {
 	for _, i := range m.Structure {
 		if i.Collide(&m.Proj.RigidBody) {
-			fmt.Println("yes")
 			return true
 		}
 	}

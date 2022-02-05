@@ -40,7 +40,7 @@ func (g *Game) Update() error {
 		if !g.start {
 			dep.Chen = dep.Pal[rand.Intn(len(dep.Pal))]
 			g.Sco.SetScore(g.gamebody.M.Point)
-			t := &dep.Map{ebiten.NewImage(resolWidth, resolHeight), 0, nil, dep.AllStructure, []*dep.Coin{}, []dep.Add{}}
+			t := &dep.Map{ebiten.NewImage(resolWidth, resolHeight), 0, nil, dep.AllMap[0], []*dep.Coin{}, []dep.Add{}}
 			img := dep.LoadImg("data/img/tank.png")
 			g.gamebody = &dep.GameBody{
 				&dep.Player{&dep.RigidBody{resolWidth/2 - 4, resolHeight/2 - 4, 16, 16}, resolWidth, resolHeight, t, img.SubImage(image.Rect(0, 0, 16, 16)).(*ebiten.Image), img.SubImage(image.Rect(16, 0, 32, 16)).(*ebiten.Image), 0, 0, 3},
@@ -83,7 +83,7 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 func init() {
 	rand.Seed(time.Now().Unix())
 	debug = false
-	t := &dep.Map{ebiten.NewImage(resolWidth, resolHeight), 0, nil, dep.AllStructure, []*dep.Coin{}, []dep.Add{}}
+	t := &dep.Map{ebiten.NewImage(resolWidth, resolHeight), 0, nil, dep.AllMap[0], []*dep.Coin{}, []dep.Add{}}
 	img := dep.LoadImg("data/img/tank.png")
 	game = &Game{
 		&dep.GameBody{
