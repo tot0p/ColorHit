@@ -123,7 +123,7 @@ func main() {
 	ebiten.SetWindowTitle("Color Hit")
 	ebiten.SetMaxTPS(60)
 	ebiten.SetWindowResizable(true)
-	//ebiten.SetFullscreen(true)
+	ebiten.SetFullscreen(true)
 	ebiten.SetWindowIcon([]image.Image{dep.LoadImgImage("data/logo16.png"), dep.LoadImgImage("data/logo32.png"), dep.LoadImgImage("data/logo48.png")})
 	if err := ebiten.RunGame(game); err != nil {
 		log.Fatal(err)
