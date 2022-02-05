@@ -86,7 +86,7 @@ func (m *Map) Update(p *Player) {
 
 func (m *Map) CollideBall() bool {
 	for _, i := range m.Structure {
-		if i.Collide(&m.Proj.RigidBody) {
+		if i.CollideBall(&m.Proj.RigidBody) {
 			return true
 		}
 	}

@@ -6,6 +6,7 @@ type Tile struct {
 	Colide    bool
 	RigidBody *RigidBody
 	Img       *ebiten.Image
+	Water     bool
 }
 
 func (t *Tile) Draw(screen *ebiten.Image) {
