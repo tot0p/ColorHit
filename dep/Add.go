@@ -13,6 +13,12 @@ type Add interface {
 	Draw(screen *ebiten.Image)
 }
 
+type VX struct {
+	Velocity int
+	Img      *ebiten.Image
+	Time     int
+}
+
 //Ammo
 type Ammo struct {
 	Nb        int
