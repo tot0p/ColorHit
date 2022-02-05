@@ -37,6 +37,10 @@ type Game struct {
 func (g *Game) Update() error {
 	if g.start {
 		g.start = g.gamebody.Update()
+		if ebiten.IsKeyPressed(ebiten.KeyEscape) {
+			g.start = false
+			start = true
+		}
 		if !g.start {
 			dep.Chen = dep.Pal[rand.Intn(len(dep.Pal))]
 			g.Sco.SetScore(g.gamebody.M.Point)
