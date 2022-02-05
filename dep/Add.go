@@ -13,15 +13,20 @@ type Add interface {
 	Draw(screen *ebiten.Image)
 }
 
+//Ammo
 type Ammo struct {
 	Nb        int
 	RigidBody RigidBody
 	Img       *ebiten.Image
+	Time      int
 }
 
 func (a *Ammo) Update(p *Player) bool {
+	a.Time--
 	if a.RigidBody.CollideCenter(p.RigidBody) {
 		p.NBBall += a.Nb
+		return true
+	} else if a.Time <= 0 {
 		return true
 	}
 	return false
@@ -46,6 +51,6 @@ func CreateAmmo(x, y, w, h int) Add {
 		temp := []image.Rectangle{image.Rect(64, 16, 80, 32), image.Rect(80, 16, 96, 32), image.Rect(64, 32, 80, 48), image.Rect(80, 32, 96, 48)}[rand.Intn(3)]
 		img = LoadImg("data/img/props.png").SubImage(temp).(*ebiten.Image)
 	}
-	var temp Add = &Ammo{t, RigidBody{x, y, w, h}, img}
+	var temp Add = &Ammo{t, RigidBody{x, y, w, h}, img, 600}
 	return temp
 }
