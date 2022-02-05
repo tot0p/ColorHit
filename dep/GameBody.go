@@ -48,8 +48,10 @@ func (g *GameBody) Draw(screen *ebiten.Image) {
 	default:
 		screen.DrawImage(LoadImg("data/img/icons.png").SubImage(image.Rect(80, 32, 96, 48)).(*ebiten.Image), op)
 	}
-	msg := fmt.Sprintf(": %d", g.Player.NBBall)
-	ebitenutil.DebugPrintAt(screen, msg, 42, 360)
+	if g.Player.NBBall > 0 {
+		msg := fmt.Sprintf(": %d", g.Player.NBBall)
+		ebitenutil.DebugPrintAt(screen, msg, 42, 360)
+	}
 	g.Player.DrawGUI(screen)
 }
 
