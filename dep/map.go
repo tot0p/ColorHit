@@ -32,6 +32,9 @@ func (m *Map) AddAdd(x, y, t int) {
 func (m *Map) Draw(screen *ebiten.Image) {
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(0, 0)
+	for _, i := range m.Structure {
+		i.DrawBefore(screen)
+	}
 	screen.DrawImage(m.Img, op)
 	for _, i := range m.Structure {
 		i.Draw(screen)
