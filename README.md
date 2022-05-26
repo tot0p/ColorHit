@@ -4,9 +4,6 @@
 
 # Color hit
 
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/tot0p/ColorHit.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/tot0p/ColorHit/alerts/)
-[![Language grade: Go](https://img.shields.io/lgtm/grade/go/g/tot0p/ColorHit.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/tot0p/ColorHit/context:go)
-
 This game was made during the ["One Minute Game jam #5"](https://itch.io/jam/one-minute-game-jam-5)
 In this short 2D shooter, you play as a kid in a tank who aims to color the world.
 You can do that by either shooting paintballs all around or by moving around the map.
