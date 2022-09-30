@@ -2,6 +2,8 @@
 ![Logo](https://img.itch.zone/aW1nLzgwNzcxNjIucG5n/original/bMRdp3.png)
 
 
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/tot0p/ColorHit.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/tot0p/ColorHit/alerts/)
+
 # Color hit
 
 This game was made during the ["One Minute Game jam #5"](https://itch.io/jam/one-minute-game-jam-5)
