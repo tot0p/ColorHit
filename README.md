@@ -3,6 +3,7 @@
 
 
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/tot0p/ColorHit.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/tot0p/ColorHit/alerts/)
+![version](https://img.shields.io/github/go-mod/go-version/tot0p/ColorHit?style=plastic)
 
 # Color hit
 
