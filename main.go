@@ -6,8 +6,8 @@ import (
 	"math/rand"
 	"time"
 
+	"ColorHit/dep"
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/tot0p/JamOneMinute/dep"
 )
 
 const (
