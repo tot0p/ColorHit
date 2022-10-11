@@ -2,7 +2,7 @@
 ![Logo](https://img.itch.zone/aW1nLzgwNzcxNjIucG5n/original/bMRdp3.png)
 
 
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/tot0p/ColorHit.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/tot0p/ColorHit/alerts/)
+[![Go Report Card](https://goreportcard.com/badge/github.com/tot0p/ColorHit)](https://goreportcard.com/report/github.com/tot0p/ColorHit)
 ![version](https://img.shields.io/github/go-mod/go-version/tot0p/ColorHit?style=plastic)
 
 # Color hit
